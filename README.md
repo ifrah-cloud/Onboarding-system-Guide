@@ -109,10 +109,10 @@ Supabase Database
 
 | Layer | Technology |
 |---|---|
-| Frontend / Portal | React + TypeScript (GHL AI Studio / Lovable) |
+| Frontend / Portal | React + TypeScript |
 | Database | Supabase (PostgreSQL) |
 | CRM / Notifications | GoHighLevel (GHL) |
-| Hosting | GHL AI Studio (custom domain: onboarding.enertiaflow.com) |
+| Hosting | custom domain |
 | Animations | Framer Motion |
 | UI Components | shadcn/ui + Tailwind CSS |
 
