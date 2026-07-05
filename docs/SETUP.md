@@ -150,7 +150,7 @@ The team dashboard is protected by a simple hardcoded password. To change it:
 Open `src/pages/DashboardLogin.tsx` and find:
 
 ```typescript
-if (password === "enertia2024") {
+if (password === "abctest2024") {
 ```
 
 Replace `"enertia2024"` with your own password. For production use, consider a more robust auth solution.
