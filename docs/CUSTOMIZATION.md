@@ -14,9 +14,9 @@ Confirm that your Supabase project has been configured correctly.
 
 ## Verify
 
-- ✅ All required database tables exist.
-- ✅ Row Level Security (RLS) policies have been configured.
-- ✅ The application can read and write data successfully.
+-  All required database tables exist.
+-  Row Level Security (RLS) policies have been configured.
+-  The application can read and write data successfully.
 
 Expected tables:
 
