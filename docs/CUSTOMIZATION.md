@@ -25,8 +25,6 @@ Also update the notification email addresses inside `sendCompletionEmail` if you
 
 ```
 'ifrah@growthguild.us'
-'ayeshat@enertiaflow.com'
-'sean@enertiaflow.com'
 ```
 
 Replace with your team's email addresses. Note: actual email delivery is handled by GHL workflows, not this array directly.
