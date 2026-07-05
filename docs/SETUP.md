@@ -80,8 +80,6 @@ In `src/lib/store.ts`, find the `TEAM_EMAILS` section inside `sendCompletionEmai
 // Around line 15 of store.ts
 // Search for these email addresses and replace with yours:
 'ifrah@growthguild.us'
-'ayeshat@enertiaflow.com'
-'sean@enertiaflow.com'
 ```
 
 Note: these emails are used for logging/reference only in the current implementation. Actual email delivery goes through GHL workflows (see Step 5 and [GHL.md](./GHL.md)).
