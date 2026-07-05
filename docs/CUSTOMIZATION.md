@@ -1,324 +1,190 @@
-# Customization Guide
+# Testing Checklist
 
-This project is designed to be customized without modifying the core application logic. In most implementations, you'll only need to update credentials, branding, copy, and checklist content.
+Before inviting real clients into your onboarding portal, complete the following validation steps using a test account.
 
-Unless you're extending the application, avoid renaming database tables, column names, storage keys, or internal identifiers. These values are referenced throughout the application and changing them may require corresponding code updates.
-
----
-
-# File 1 — `src/lib/store.ts`
-
-This file contains the application's external service configuration.
-
-Update the following values before deployment:
-
-```typescript
-const SUPA_URL = "https://YOUR_PROJECT_ID.supabase.co";
-const SUPA_KEY = "YOUR_SUPABASE_ANON_KEY";
-const GHL_WEBHOOK_URL = "YOUR_COMPLETION_WEBHOOK";
-const HELP_MESSAGE_WEBHOOK_URL = "YOUR_HELP_WEBHOOK";
-```
-
-## What these values do
-
-| Setting | Purpose |
-|----------|---------|
-| `SUPA_URL` | Connects the application to your Supabase project. |
-| `SUPA_KEY` | Allows the application to communicate with your Supabase database. |
-| `GHL_WEBHOOK_URL` | Triggered when a client completes onboarding. |
-| `HELP_MESSAGE_WEBHOOK_URL` | Receives help requests and simulator submissions. |
-
-For most deployments, these are the only values that need to be changed in this file.
-
----
-
-# File 2 — `src/components/GamifiedChecklist.tsx`
-
-This file controls the onboarding experience, including the checklist, XP system, completion messages, and simulator placement.
-
----
-
-## Customize the Checklist
-
-The onboarding checklist is defined inside the `CHECKLIST_DATA` object.
-
-Each section contains one or more checklist items.
-
-Example:
-
-```typescript
-export const CHECKLIST_DATA = [
-  {
-    id: "profile",
-    title: "Set Up Your Profile",
-    items: [
-      {
-        id: "p1",
-        text: "Complete your profile",
-        points: 10,
-      },
-    ],
-  },
-];
-```
-
-Each checklist item requires:
-
-- A unique ID
-- Display text
-- XP value
-
----
-
-### Item ID Guidelines
-
-Every checklist item must have a unique ID.
-
-Recommended naming:
-
-- `p1`
-- `p2`
-- `ph1`
-- `ph2`
-- `c1`
-- `o1`
-
-> **Important**
+> **Recommendation**
 >
-> Once your application is in use, avoid changing existing item IDs.
->
-> Client progress is stored using these identifiers. Renaming or reusing IDs may cause previously completed tasks to appear incomplete.
+> Always test using a dedicated email address rather than a real client.
 
 ---
 
-## Pipeline Simulator
+# Phase 1 — Database Verification
 
-The Pipeline Simulator is rendered inside the checklist section with the ID:
+Confirm that your Supabase project has been configured correctly.
 
-```text
-pipeline
-```
+## Verify
 
-If you'd like the simulator to appear elsewhere, update the section identifier used by the component.
+- ✅ All required database tables exist.
+- ✅ Row Level Security (RLS) policies have been configured.
+- ✅ The application can read and write data successfully.
 
----
+Expected tables:
 
-## Workflow Simulator
-
-The Workflow Simulator is rendered inside the checklist section with the ID:
-
-```text
-contacts
-```
-
-You may change this if you want the simulator to appear in another section.
+- `clients`
+- `help_messages`
+- `pipeline_requests`
+- `workflow_requests`
 
 ---
 
-## Progress Status Labels
+# Phase 2 — Client Login
 
-These labels appear throughout the application as the client's onboarding progresses.
+Verify the onboarding portal can successfully create and recognize clients.
 
-Example:
+## Test
 
-```typescript
-Initializing
-Booting Up
-Calibrating
-Fully Operational
-```
+- Open the onboarding portal.
+- Submit a new test client.
+- Confirm the client record is created.
+- Sign out and sign back in using the same email.
 
-Feel free to replace these with terminology that matches your brand.
+Expected results:
 
----
-
-## Encouragement Messages
-
-The checklist displays motivational messages as clients make progress.
-
-Example:
-
-```typescript
-System booting up.
-Good start.
-Halfway there.
-Almost finished.
-All systems go.
-```
-
-These messages can be customized to match your preferred tone of voice.
+- Client account is created automatically.
+- Returning users resume their existing onboarding progress.
+- Progress is not reset between sessions.
 
 ---
 
-## Completion Screen
+## URL Parameter Test (GoHighLevel)
 
-The completion modal includes:
+If you're using GoHighLevel, verify that the portal correctly receives client information from your custom menu link.
 
-- Title
-- Description
-- Call-to-action text
+Expected behavior:
 
-Update these values to reflect your own branding and onboarding experience.
-
----
-
-# File 3 — `src/pages/ClientLogin.tsx`
-
-This file controls the client login page.
+- Name is pre-filled.
+- Email is pre-filled.
+- GoHighLevel Location ID is stored.
+- Client record is associated with the correct location.
 
 ---
 
-## Logo
+# Phase 3 — Checklist
 
-Replace the logo with your own.
+Verify the onboarding checklist functions correctly.
 
-Example:
+## Confirm
 
-```tsx
-<img src="YOUR_LOGO_URL" />
-```
-
----
-
-## Branding
-
-Update the following text throughout the page:
-
-- Portal name
-- Welcome message
-- Subtitle
-- Button label
-- Loading message
-- Team login link
-
-These values control the client's first impression of your onboarding portal.
+- Completing an item updates progress.
+- XP increases correctly.
+- Progress persists after signing out.
+- Previously completed items remain checked.
+- Progress bar updates correctly.
+- Status labels change throughout onboarding.
 
 ---
 
-# File 4 — `src/pages/Dashboard.tsx`
+# Phase 4 — Help Center
 
-This file controls the internal dashboard.
+Verify client support messaging.
 
----
+## Checklist
 
-## Logo
-
-Replace the default logo with your own branding.
-
----
-
-## Dashboard Branding
-
-Customize:
-
-- Dashboard name
-- Page heading
-- Page description
-
-These changes affect the appearance of the admin dashboard only.
+- Client can open a help thread.
+- Client can send messages.
+- Messages appear in the database.
+- Messages trigger the configured webhook.
+- General support inbox works correctly.
+- Checklist-specific conversations remain separated.
 
 ---
 
-# File 5 — `src/pages/DashboardLogin.tsx`
+# Phase 5 — Pipeline Simulator
 
-This file controls access to the internal dashboard.
+Verify the Pipeline Simulator.
 
----
+## Confirm
 
-## Authentication
-
-Replace the default password before deploying the application.
-
-For production environments, using a proper authentication provider is strongly recommended.
-
----
-
-## Branding
-
-You can also customize:
-
-- Dashboard name
-- Login subtitle
-- Input label
-- Login button text
+- Form opens correctly.
+- Submission is accepted.
+- Request is stored.
+- Webhook is triggered.
+- Success confirmation appears.
 
 ---
 
-# GoHighLevel Configuration
+# Phase 6 — Workflow Simulator
 
-To automatically identify the logged-in client, configure your GoHighLevel Client Portal menu link to include dynamic client information.
+Repeat the same validation for the Workflow Simulator.
 
-Example:
+Confirm:
 
-```text
-https://onboarding.yourdomain.com/?location={{location.id}}&email={{user.email}}&name={{user.fullName}}
-```
-
-When a client opens the portal, the application automatically reads these values to:
-
-- Create the client record
-- Associate progress with the correct user
-- Save the GoHighLevel Location ID
-- Generate direct links back into the client's GoHighLevel account
+- Request is stored.
+- Webhook executes.
+- Success confirmation appears.
 
 ---
 
-## Email Branding
+# Phase 7 — Onboarding Completion
 
-If you're using GoHighLevel workflows, remember to update:
+Complete the entire onboarding checklist.
 
-- Internal notification email addresses
-- Agency name
-- Email signatures
-- Company references
-- Any default branding
+Verify:
 
----
-
-# Internal Components
-
-The following values are referenced throughout the application.
-
-Unless you're extending the platform, they should remain unchanged.
-
-| Component | Reason |
-|-----------|--------|
-| Database table names | Referenced throughout the application. |
-| Database column names | Used by the application's data layer. |
-| `currentUser` localStorage key | Used to maintain client sessions. |
-| `store_updated` custom event | Used to refresh dashboard data. |
-| Existing checklist item IDs | Used to restore saved client progress. |
-| Reserved thread identifier (`general`) | Used to identify the general support conversation. |
+- Completion modal appears.
+- Celebration animation displays.
+- Completion webhook executes.
+- Internal notification is sent.
+- Client confirmation email is delivered.
+- Completion is only processed once.
 
 ---
 
-# Designing Your XP System
+# Phase 8 — Dashboard
 
-XP values are completely customizable.
+Verify the internal dashboard.
 
-A useful approach is to assign points based on the effort required to complete each task.
+## Confirm
 
-| Task Difficulty | Suggested XP |
-|-----------------|-------------:|
-| Quick task | 5–10 |
-| Standard setup | 15–25 |
-| Major milestone | 30–50 |
-
-Rather than assigning equal values to every task, consider rewarding items that require more effort or are commonly delayed. This creates a stronger sense of progression throughout the onboarding experience.
+- Client appears in the dashboard.
+- Progress updates correctly.
+- Client details open successfully.
+- Support conversations appear.
+- Team replies sync correctly.
+- Pipeline requests display correctly.
+- Workflow requests display correctly.
+- Status updates work.
+- Reset Progress works.
+- Delete Client works.
 
 ---
 
-# Deployment Checklist
+# Phase 9 — Cleanup
 
-Before launching your onboarding portal, verify the following:
+After testing:
 
-- Supabase credentials have been updated.
--  Webhook URLs have been configured.
--  Logos and branding have been replaced.
--  Dashboard password has been changed.
--  Checklist content has been customized.
--  GoHighLevel menu link has been configured.
--  Database tables have been created.
--  A complete onboarding flow has been tested successfully.
+- Remove all test records from Supabase.
+- Remove test requests.
+- Remove test conversations.
+- Clear browser storage if required.
 
-Once these steps are complete, your onboarding portal is ready for production.
+---
+
+# Common Issues
+
+| Problem | Possible Cause | Suggested Solution |
+|----------|----------------|--------------------|
+| Progress does not persist | Database connection or write failure | Verify Supabase credentials and database permissions. |
+| Client cannot log in | Client record not created | Verify Supabase configuration and onboarding URL parameters. |
+| Help messages do not appear | Webhook or database configuration | Verify webhook endpoint and database connectivity. |
+| Pipeline or Workflow requests are missing | Simulator webhook not configured | Confirm webhook URL and workflow configuration. |
+| Completion actions do not trigger | Completion webhook not configured | Verify webhook configuration and completion workflow. |
+| Dashboard data is outdated | Browser cache or synchronization delay | Refresh the dashboard and verify database updates. |
+| GoHighLevel information is missing | URL parameters not passed correctly | Verify the custom menu link includes the required merge fields. |
+
+---
+
+# Production Readiness Checklist
+
+Before inviting your first client, confirm:
+
+- Database configured
+- Webhooks configured
+- GoHighLevel integration tested
+- Branding customized
+-  Dashboard tested
+- Help Center tested
+- Pipeline Simulator tested
+- Workflow Simulator tested
+- Completion workflow tested
+- Test client removed
