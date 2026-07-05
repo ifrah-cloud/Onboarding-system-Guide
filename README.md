@@ -81,14 +81,7 @@ Supabase Database
 | `src/pages/Dashboard.tsx` | Internal team dashboard. Reads live from Supabase. |
 | `src/pages/DashboardLogin.tsx` | Password-protected team login. |
 
----
 
-## Quick Numbers
-
-- **4 Supabase tables** — clients, help_messages, pipeline_requests, workflow_requests
-- **2 GHL webhooks** — completion (100%), help/simulator
-- **5 checklist sections** — Profile, Phone, Contacts, Pipeline, (expandable)
-- **3 notification recipients** — ifrah@growthguild.us, ayeshat@enertiaflow.com, sean@enertiaflow.com
 
 ---
 
