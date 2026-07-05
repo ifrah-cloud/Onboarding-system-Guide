@@ -101,7 +101,6 @@ Supabase Database
               GHL Workflows
                 ├── Send email to client (confirmation)
                 └── Notify internal team
-```
 
 ---
 
