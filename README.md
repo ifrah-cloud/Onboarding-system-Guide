@@ -1,7 +1,47 @@
-# Enertia Flow — Client Onboarding System
+# Client Onboarding System
 
-A fully custom client onboarding portal built on top of GoHighLevel (GHL), Supabase, and React. Clients complete a gamified checklist inside a branded portal, progress is tracked in real time, and your team is notified automatically via GHL workflows.
+"It's not about solving bigger problems. It's about finding the loopholes and fixing the leaks — to respect time and add value."
 
+The Problem This Solves
+
+GHL onboarding is one of the most time-consuming parts of running an agency. Not because GHL is complicated — but because there's no structure to it. A new client gets access to a powerful sub-account, stares at a blank dashboard, and freezes. They don't know where to start. They don't know what they've already done. And without a system, neither does your team.
+
+The result is hours of back-and-forth. Repeated check-in calls. Clients who bought a sub-account three weeks ago and still haven't connected their calendar. Team members manually tracking who's done what in a spreadsheet or, worse, in their heads.
+
+This system fixes that — not by adding more complexity, but by removing the friction that was always there.
+
+
+What It Does
+
+A branded, gamified onboarding portal that guides GHL clients through their setup from day one. Clients know exactly where they are, what's left to do, and who to ask when they're stuck. Your team gets a live dashboard showing every client's progress without having to ask.
+
+For the client:
+
+Opens inside their GHL sub-account from a menu link — no separate login, no hunting for a URL
+A checklist tells them exactly what to do and in what order
+Each step has a help panel — they can ask a question right there, without leaving the page
+A general inbox lets them message the team about anything
+If they need a custom pipeline or workflow, they can request it with a form — no email, no guessing who to contact
+
+For your team:
+
+A live dashboard shows every client, their progress percentage, and their status
+Help messages, pipeline requests, and workflow requests all surface in the dashboard automatically
+Replies go back to the client directly through the portal
+When a client hits 100%, GHL fires a notification to the whole team — automatically
+
+The Time Math
+
+The 1.5 hours saved per client isn't an estimate pulled from thin air. Here's where it comes from:
+
+What used to happen What happens nowTime saved"Where do I start?" call after sub-account creationClient opens the portal, checklist tells them exactly what to do~20 minManual progress check-in ("Have you set up your phone number yet?")Dashboard shows real-time progress — no check-in needed~15 minBack-and-forth email when client is stuck on a stepHelp panel sends the message to the team, reply goes back inline~20 min"Can you build me a pipeline for X?" email threadPipeline simulator form captures the full spec in one submission~15 minForgetting to follow up when a client finishesGHL webhook fires automatically, team gets notified immediately~10 minClient never finishes because they lose momentumGamification (XP, progress bar, section completion) keeps them moving~30 min
+
+Total: ~1.5 hours per client, every time.
+
+At 10 new clients a month, that's 15 hours back. At 50, it's a part-time role eliminated.
+
+
+How It Works
 ---
 
 ## What This System Does
