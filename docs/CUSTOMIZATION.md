@@ -4,12 +4,6 @@ This document lists every place you need to change something when implementing t
 
 ---
 
-## The 80/20 Rule for This System
-
-80% of the work is configuration — swapping out credentials, URLs, email addresses, and checklist content. Only 20% is code-level changes, and those are all clearly marked below.
-
----
-
 ## File 1 — `src/lib/store.ts`
 
 This is the only file with credentials and URLs. Change these values at the top:
